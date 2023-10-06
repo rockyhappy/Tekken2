@@ -1,0 +1,14 @@
+body{
+    /* background-image: url("./assets/arrenas/arena.png");
+    background-repeat : no-repeat ;
+    background-size: contain;
+} */
+}
+#game{
+    /* height: 100%;
+    width: 100%; */
+    /* background: transparent; */
+    background-image: url("./assets/arrenas/arena.png");
+    background-repeat : no-repeat ;
+    background-size: contain;
+}

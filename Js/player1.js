@@ -1,8 +1,12 @@
 const canvas =document.getElementById("game");
 const ctx=canvas.getContext("2d");
-canvas.width=2000;
-canvas.height=1000;
+canvas.width=1200;
+canvas.height=800;
 canvas.fillStyle="transparent"
+
+const playerHeight=400
+const playerWidht=200
+
 
 // variable to define state
 let walk =false;
@@ -129,7 +133,7 @@ function walkFunction()
     if(i>=9){
         i=1;
     }
-    ctx.drawImage(walkImages[i],posX+(j*40),10,400,400);
+    ctx.drawImage(walkImages[i],posX+(j*40),300,playerWidht,playerHeight);
     console.log(j);
     i+=1;
     j+=1;
@@ -139,7 +143,7 @@ function backWalkFunction()
     if(i>=9){
         i=1;
     }
-    ctx.drawImage(walkImages[i],posX-(j*40),10,400,400);
+    ctx.drawImage(walkImages[i],posX-(j*40),300,playerWidht,playerHeight);
     i+=1;
     j+=1;
 }
@@ -148,7 +152,7 @@ function stanceFunction()
     if(i>12){
         i=1;
     }
-    ctx.drawImage(stanceImages[i],posX,10,400,400);
+    ctx.drawImage(stanceImages[i],posX,300,playerWidht,playerHeight);
     i+=1;
 }
 function punchFunction()
@@ -158,7 +162,7 @@ function punchFunction()
         i=1;
         punch=false;
     }
-    ctx.drawImage(punchImages[i],posX,10,400,400);
+    ctx.drawImage(punchImages[i],posX,300,playerWidht,playerHeight);
     i+=1;
 }
 function kickFunction()
@@ -168,7 +172,7 @@ function kickFunction()
         i=1;
         kick=false;
     }
-    ctx.drawImage(kickImages[i],posX,10,400,400);
+    ctx.drawImage(kickImages[i],posX,300,playerWidht,playerHeight);
     i+=1;
 }
 function blockFunction()
@@ -177,7 +181,7 @@ function blockFunction()
     {
         i=3;
     }
-    ctx.drawImage(blockImages[i],posX,10,400,400);
+    ctx.drawImage(blockImages[i],posX,300,playerWidht,playerHeight);
     i+=1;
 }
 function gameloop()
