@@ -1,50 +1,60 @@
 body {
     margin: 0;
     padding: 0;
+    font-family: Arial, sans-serif;
     background-color: #000;
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
 }
 
-#game-container {
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
     position: relative;
 }
 
-#screenshot {
-    max-width: 100%;
+#arena {
+    width: 80%;
+    max-width: 800px;
     height: auto;
+    z-index: 1;
+}
+
+.characters {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    max-width: 800px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.character {
+    flex: 1;
+}
+
+.character img {
+    width: 100%;
+    max-height: 300px;
+    border: 2px solid #fff;
+    border-radius: 10px;
 }
 
 #play-button {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
     background-color: #ff5733;
     color: #fff;
     font-size: 24px;
-    padding: 10px 20px;
+    padding: 15px 30px;
     border: none;
-    cursor: pointer;
     border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
 }
 
-#game-details {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    color: #fff;
-    font-size: 18px;
-}
-
-#game-title {
-    font-size: 36px;
-    margin-bottom: 10px;
-}
-
-#game-description {
-    font-size: 24px;
+#play-button:hover {
+    background-color: #ff4500;
 }
