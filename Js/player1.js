@@ -21,7 +21,7 @@ let rKeyUp=false;
 let i=1;
 let j=0
 let posX=10;
-let RadienLife=500;
+let RadienLife=5000;
 
 
 //variables to define the state of reptile 
@@ -38,7 +38,7 @@ let reptileKickKeyUp=false;
 let reptilei=1;
 let reptilej=0
 let reptilePosX=990;
-let ReptileLife=500;
+let ReptileLife=5000;
 
 
 
@@ -355,7 +355,9 @@ function blockFunction()
 function gameloop()
 {
     ctx.clearRect(0,0,canvas.width,canvas.height)
-
+    ctx.fillStyle="#90ff00"
+    ctx.fillRect(50,50,RadienLife/15,50)
+    ctx.fillRect(1150,50,-(ReptileLife/15),50)
     //checking for what state the controller wants to be 
     if(eKeyDown&&rKeyDown&&!eKeyUp&&!rKeyUp)
     {
@@ -472,6 +474,40 @@ function gameloop()
     }
 
 
-    
+    //Changing the life of the charecters
+    if(reptilePosX-posX<200)
+    {
+        //console.log("Collision Condition")
+        if(block && reptileBlock)
+        {
+            console.log("both block")
+        }
+        else if(block &&(reptilePunch||reptileKick)) 
+        {
+            RadienLife-=25;
+        }
+        else if((punch||kick)&&reptileBlock)
+        {
+            ReptileLife-=25;
+        }
+        else if((punch||kick)&&(reptileKick||reptilePunch))
+        {
+            RadienLife-=75;
+            ReptileLife-=75;
+        }
+        else if(punch||kick)
+        {
+            ReptileLife-=50;
+        }
+        else if(reptilePunch||reptileKick)
+        {
+            RadienLife-=50;
+        }
+        console.log(`RadienLife: ${RadienLife}`)
+        console.log(`ReptileLife: ${ReptileLife}`)
+
+    }
+
+
 }
 setInterval(gameloop,80);
