@@ -37,6 +37,15 @@ function update() {
     rectangle2.x += rectangle2.speedX;
     rectangle2.y += rectangle2.speedY;
 
+    // Prevent rectangles from going outside the canvas boundaries
+    // rectangle1.x = Math.max(0, Math.min(rectangle1.x, canvasWidth - rectangle1.width));
+    // rectangle1.y = Math.max(0, Math.min(rectangle1.y, canvasHeight - rectangle1.height));
+
+    // rectangle2.x = Math.max(0, Math.min(rectangle2.x, canvasWidth - rectangle2.width));
+    // rectangle2.y = Math.max(0, Math.min(rectangle2.y, canvasHeight - rectangle2.height));
+
+    
+
     // Check for collisions
     if (
         rectangle1.x + rectangle1.width > rectangle2.x &&
