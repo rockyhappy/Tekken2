@@ -19,7 +19,7 @@ let eKeyUp=false;
 let rKeyDown =false;
 let rKeyUp=false;
 let i=1;
-let j=1
+let j=0
 let posX=10;
 
 
@@ -38,7 +38,7 @@ let reptilePunchKeyUp=false;
 let reptileKickKeyDown =false;
 let reptileKickKeyUp=false;
 let reptilei=1;
-let reptilej=1
+let reptilej=0
 let reptilePosX=990;
 
 
@@ -86,12 +86,12 @@ function keyup(event)
                 case "KeyD":
                     walk=false;
                     posX+=j*40;
-                    j=1
+                    j=0
                     break;
                 case "KeyA":
                     backWalk=false;
                     posX-=j*40;
-                    j=1;
+                    j=0;
                     break;
                 case "KeyE":
                     i=1;
@@ -104,12 +104,12 @@ function keyup(event)
                 case "ArrowRight":
                     reptileBackWalk=false;
                     reptilePosX+=reptilej*40;
-                    reptilej=1;
+                    reptilej=0;
                     break;
                 case "ArrowLeft":
                     reptileWalk=false;
                     reptilePosX-=reptilej*40;
-                    reptilej=1;
+                    reptilej=0;
                     break;
                 case "Period":
                     reptilePunchKeyUp=true;
@@ -238,9 +238,10 @@ function reptileWalkFunction()
     {
         reptilei=1;
     }
-    ctx.drawImage(reptileWalkImages[reptilei],reptilePosX-(reptilej*40),300,playerWidht,playerHeight);
+    ctx.drawImage(reptileWalkImages[reptilei],reptilePosX,300,playerWidht,playerHeight);
     reptilei+=1;
-    reptilej+=1;
+    if(reptilePosX-180>posX)
+    reptilePosX-=40;
 }
 
 //back walk function for Reptile
@@ -249,6 +250,8 @@ function reptileBackWalkFunction()
     if(reptilei>=9){
         reptilei=1;
     }
+    if(reptilePosX+(reptilej*40)+200>=1200)
+    reptilej-=1;
     ctx.drawImage(reptileWalkImages[10-reptilei],reptilePosX+(reptilej*40),300,playerWidht,playerHeight);
     reptilei+=1;
     reptilej+=1;
@@ -296,16 +299,20 @@ function walkFunction()
     if(i>=9){
         i=1;
     }
-    ctx.drawImage(walkImages[i],posX+(j*40),300,playerWidht,playerHeight);
-    console.log(j);
+    ctx.drawImage(walkImages[i],posX+40,300,playerWidht,playerHeight);
+    //console.log(j);
     i+=1;
-    j+=1;
+    if(posX+180<reptilePosX)
+    posX+=40;
+    
 }
 function backWalkFunction()
 {
     if(i>=9){
         i=1;
     }
+    if(posX-(j*40)<=0)
+    j-=1;
     ctx.drawImage(walkImages[10-i],posX-(j*40),300,playerWidht,playerHeight);
     i+=1;
     j+=1;
