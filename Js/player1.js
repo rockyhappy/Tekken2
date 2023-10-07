@@ -48,7 +48,7 @@ let reptilePosX=990;
 //functions deciding the state when key is pressed
 function keydown(event)
 {
-    console.log(event.code)
+    //console.log(event.code)
     switch(event.code)
     {
         case "KeyD":
@@ -73,14 +73,14 @@ function keydown(event)
             reptilePunchKeyDown=true;
             break;
         case "Slash":
-            reptilePunchKeyUp=true;
+            reptileKickKeyDown=true;
             break;
             }
         }
         
 function keyup(event)
         {
-            console.log(event.code)
+            //console.log(event.code)
             switch (event.code)
             {
                 case "KeyD":
@@ -103,15 +103,21 @@ function keyup(event)
                     break;
                 case "ArrowRight":
                     reptileBackWalk=false;
+                    reptilePosX+=reptilej*40;
+                    reptilej=1;
                     break;
                 case "ArrowLeft":
                     reptileWalk=false;
+                    reptilePosX-=reptilej*40;
+                    reptilej=1;
                     break;
                 case "Period":
-                    reptilePunchKeyUp=false;
+                    reptilePunchKeyUp=true;
+                    reptilei=1;
                     break;
                 case "Slash":
-                    reptileKickKeyUp=false;
+                    reptileKickKeyUp=true;
+                    reptilei=1;
                     break;
 
         }
@@ -206,6 +212,15 @@ for(let i=1;i<=14;i++)
     reptileKickImages[i].src=`./assets/reptile/kick/kick0${i}.png`
 }
 
+//Loading Reptile Block Images
+var reptileBlockImages=[];
+reptileBlockImages.length=3;
+for(let i =1;i<=3;i++)
+{
+    reptileBlockImages[i]=new Image();
+    reptileBlockImages[i].src=`./assets/reptile/block/block0${i}.png`;
+}
+
 // Stance function for reptile
 function reptileStanceFunction()
 {
@@ -223,7 +238,56 @@ function reptileWalkFunction()
     {
         reptilei=1;
     }
-    ctx.drawImage(reptileWalkImages[reptilei],reptilePosX-(reptilei*40),300,playerWidht,playerHeight);
+    ctx.drawImage(reptileWalkImages[reptilei],reptilePosX-(reptilej*40),300,playerWidht,playerHeight);
+    reptilei+=1;
+    reptilej+=1;
+}
+
+//back walk function for Reptile
+function reptileBackWalkFunction()
+{
+    if(reptilei>=9){
+        reptilei=1;
+    }
+    ctx.drawImage(reptileWalkImages[10-reptilei],reptilePosX+(reptilej*40),300,playerWidht,playerHeight);
+    reptilei+=1;
+    reptilej+=1;
+}
+
+//function for reptile punch
+
+function reptilePunchFunction()
+{
+    if(reptilei>12)
+    {
+        reptilei=1;
+        reptilePunch=false;
+    }
+    ctx.drawImage(reptilePunchImages[reptilei],reptilePosX,300,playerWidht,playerHeight);
+    reptilei+=1;
+}
+
+
+//function for the kick of reptile
+function reptileKickFunction()
+{
+    if(reptilei>14)
+    {
+        reptilei=1;
+        reptileKick=false;
+    }
+    ctx.drawImage(reptileKickImages[reptilei],reptilePosX,300,playerWidht,playerHeight);
+    reptilei+=2;
+}
+
+// Function for the block of Reptile
+function reptileBlockFunction()
+{
+    if(reptilei>3)
+    {
+        reptilei=3;
+    }
+    ctx.drawImage(reptileBlockImages[reptilei],reptilePosX,300,playerWidht,playerHeight);
     reptilei+=1;
 }
 //walk function for radien
@@ -342,9 +406,63 @@ function gameloop()
     else{
         stanceFunction();
     }
+
+
+    //conditions to judge the the state of the reptile
+    if(reptilePunchKeyDown&&reptileKickKeyDown&&!reptilePunchKeyUp&&!reptileKickKeyUp)
+    {
+        reptileBlock=true;
+    }
+    else if(reptilePunchKeyDown&&reptilePunchKeyUp&&!reptileKickKeyDown&&!reptileKickKeyUp)
+    {
+        reptilePunch=true;
+        reptileKickKeyDown=false;
+        reptilePunchKeyDown=false;
+        reptilePunchKeyUp=false;
+        reptileKickKeyUp=false;
+    }
+    else if(!reptilePunchKeyDown&&!reptilePunchKeyUp&&reptileKickKeyDown&&reptileKickKeyUp)
+    {
+        reptileKick=true;
+        reptilePunchKeyDown=false;
+        reptileKickKeyDown=false;
+        reptilePunchKeyUp=false;
+        reptileKickKeyUp=false;
+    }
+    else if(reptilePunchKeyDown&&reptilePunchKeyUp&&reptileKickKeyDown&&reptileKickKeyUp)
+    {
+        reptileBlock=false;
+        reptileKickKeyDown=false;
+        reptilePunchKeyDown=false;
+        reptilePunchKeyUp=false;
+        reptileKickKeyUp=false;
+    }
+
+
+
+
     if(reptileWalk)
     {
         reptileWalkFunction();
+    }
+    else if(reptileBackWalk)
+    {
+        reptileBackWalkFunction();
+    }
+    else if(reptileBlock)
+    {
+        reptileBlockFunction();
+        //console.log("reptileBlock");
+    }
+    else if(reptilePunch)
+    {
+        reptilePunchFunction();
+        //ctx.clearRect(0,0,canvas.width,canvas.height)
+        //reptileKickFunction();
+    }
+    else if(reptileKick)
+    {
+        reptileKickFunction();
     }
     else{
 
