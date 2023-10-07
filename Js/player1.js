@@ -86,7 +86,7 @@ function keyup(event)
                 case "KeyD":
                     walk=false;
                     posX+=j*40;
-                    j=1
+                    j=1;
                     break;
                 case "KeyA":
                     backWalk=false;
