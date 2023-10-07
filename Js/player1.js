@@ -18,12 +18,11 @@ let eKeyDown =false;
 let eKeyUp=false;
 let rKeyDown =false;
 let rKeyUp=false;
+let radienFall=false;
 let i=1;
-let j=1
+let j=0
 let posX=10;
-
-
-
+let RadienLife=5000;
 
 
 //variables to define the state of reptile 
@@ -37,10 +36,11 @@ let reptilePunchKeyDown =false;
 let reptilePunchKeyUp=false;
 let reptileKickKeyDown =false;
 let reptileKickKeyUp=false;
+let reptileFall=false;
 let reptilei=1;
-let reptilej=1
+let reptilej=0
 let reptilePosX=990;
-
+let ReptileLife=5000;
 
 
 
@@ -86,12 +86,12 @@ function keyup(event)
                 case "KeyD":
                     walk=false;
                     posX+=j*40;
-                    j=1
+                    j=0
                     break;
                 case "KeyA":
                     backWalk=false;
                     posX-=j*40;
-                    j=1;
+                    j=0;
                     break;
                 case "KeyE":
                     i=1;
@@ -104,12 +104,12 @@ function keyup(event)
                 case "ArrowRight":
                     reptileBackWalk=false;
                     reptilePosX+=reptilej*40;
-                    reptilej=1;
+                    reptilej=0;
                     break;
                 case "ArrowLeft":
                     reptileWalk=false;
                     reptilePosX-=reptilej*40;
-                    reptilej=1;
+                    reptilej=0;
                     break;
                 case "Period":
                     reptilePunchKeyUp=true;
@@ -118,6 +118,14 @@ function keyup(event)
                 case "Slash":
                     reptileKickKeyUp=true;
                     reptilei=1;
+                    break;
+                case "Enter":
+                    radienFall=false;
+                    reptileFall=false;
+                    RadienLife=5000;
+                    ReptileLife=5000;
+                    reptilei=1;
+                    i=1;
                     break;
 
         }
@@ -128,6 +136,15 @@ function keyup(event)
     document.addEventListener("keydown",keydown);
     document.addEventListener("keyup",keyup);
     // document.addEventListener("keypress",keypress)
+
+//Loading Fall Images for Radien
+var fallImages=[];
+fallImages.length=9;
+for(let i=1;i<=9;i++)
+{
+    fallImages[i]=new Image();
+    fallImages[i].src=`./assets/sprites/fall/fallf0${i}.png`
+}
 
 
 //loading walking images radien
@@ -221,6 +238,24 @@ for(let i =1;i<=3;i++)
     reptileBlockImages[i].src=`./assets/reptile/block/block0${i}.png`;
 }
 
+var reptileFallImages=[];
+reptileFallImages.length=7;
+for(let i=1;i<=7;i++)
+{
+    reptileFallImages[i]=new Image();
+    reptileFallImages[i].src=`./assets/reptile/fall/fallf0${i}.png`;
+}
+
+//Fall Function for reptile
+function reptileFallFunction()
+{
+    if(reptilei>=7)
+    {
+        reptilei=7;
+    }
+    ctx.drawImage(reptileFallImages[reptilei],reptilePosX,600,playerHeight,150);
+    reptilei+=1;
+}
 // Stance function for reptile
 function reptileStanceFunction()
 {
@@ -238,9 +273,10 @@ function reptileWalkFunction()
     {
         reptilei=1;
     }
-    ctx.drawImage(reptileWalkImages[reptilei],reptilePosX-(reptilej*40),300,playerWidht,playerHeight);
+    ctx.drawImage(reptileWalkImages[reptilei],reptilePosX,300,playerWidht,playerHeight);
     reptilei+=1;
-    reptilej+=1;
+    if(reptilePosX-180>posX)
+    reptilePosX-=40;
 }
 
 //back walk function for Reptile
@@ -249,6 +285,8 @@ function reptileBackWalkFunction()
     if(reptilei>=9){
         reptilei=1;
     }
+    if(reptilePosX+(reptilej*40)+200>=1200)
+    reptilej-=1;
     ctx.drawImage(reptileWalkImages[10-reptilei],reptilePosX+(reptilej*40),300,playerWidht,playerHeight);
     reptilei+=1;
     reptilej+=1;
@@ -267,6 +305,7 @@ function reptilePunchFunction()
     reptilei+=1;
 }
 
+//Function for Reptile fall
 
 //function for the kick of reptile
 function reptileKickFunction()
@@ -296,16 +335,20 @@ function walkFunction()
     if(i>=9){
         i=1;
     }
-    ctx.drawImage(walkImages[i],posX+(j*40),300,playerWidht,playerHeight);
-    console.log(j);
+    ctx.drawImage(walkImages[i],posX+40,300,playerWidht,playerHeight);
+    //console.log(j);
     i+=1;
-    j+=1;
+    if(posX+180<reptilePosX)
+    posX+=40;
+    
 }
 function backWalkFunction()
 {
     if(i>=9){
         i=1;
     }
+    if(posX-(j*40)<=0)
+    j-=1;
     ctx.drawImage(walkImages[10-i],posX-(j*40),300,playerWidht,playerHeight);
     i+=1;
     j+=1;
@@ -347,10 +390,73 @@ function blockFunction()
     ctx.drawImage(blockImages[i],posX,300,playerWidht,playerHeight);
     i+=1;
 }
+
+//Fall function for Radien 
+function fallFunction()
+{
+    if(i>=8)
+    {
+        i=8;
+    }
+    ctx.drawImage(fallImages[i],posX,600,playerHeight,150);
+    i+=1;
+}
 function gameloop()
 {
     ctx.clearRect(0,0,canvas.width,canvas.height)
+    ctx.strokeStyle = "White";
+    ctx.lineWidth = 5; 
+    if(RadienLife>0&&ReptileLife>0)
+    {
+        ctx.strokeRect(50, 50, 333, 50); 
+        ctx.strokeRect(1150, 50, -333, 50); 
 
+        if(RadienLife>4000)
+        {
+            ctx.fillStyle="#00ff00"
+        }
+        else if(RadienLife>3000)
+        {
+            ctx.fillStyle="#90ff00"
+        }
+        else if(RadienLife>2000)
+        {
+            ctx.fillStyle="#ffff00"
+        }
+        else 
+        {
+            ctx.fillStyle="#ff0000"
+        }
+        ctx.fillRect(50,50,RadienLife/15,50)
+        
+        if(ReptileLife>4000)
+        {
+            ctx.fillStyle="#00ff00"
+        }
+        else if(ReptileLife>3000)
+        {
+            ctx.fillStyle="#90ff00"
+        }
+        else if(ReptileLife>2000)
+        {
+            ctx.fillStyle="#ffff00"
+        }
+        else 
+        {
+            ctx.fillStyle="#ff0000"
+        }
+        ctx.fillRect(1150,50,-(ReptileLife/15),50)
+    }
+    else{
+        if(RadienLife<0)
+        {
+            radienFall=true;
+        }
+        else if(ReptileLife<0)
+        {
+            reptileFall=true;
+        }
+    }
     //checking for what state the controller wants to be 
     if(eKeyDown&&rKeyDown&&!eKeyUp&&!rKeyUp)
     {
@@ -380,7 +486,11 @@ function gameloop()
         eKeyUp=false;
         rKeyUp=false;
     }
-    if(walk)
+    if(radienFall)
+    {
+        fallFunction();
+    }
+    else if(walk)
     {
         //console.log("hi")
         walkFunction();
@@ -440,8 +550,13 @@ function gameloop()
 
 
 
-
-    if(reptileWalk)
+    //This is the condition to check the state of reptile
+    if(reptileFall)
+    {
+        console.log(reptilei)
+        reptileFallFunction();
+    }
+    else if(reptileWalk)
     {
         reptileWalkFunction();
     }
@@ -452,13 +567,10 @@ function gameloop()
     else if(reptileBlock)
     {
         reptileBlockFunction();
-        //console.log("reptileBlock");
     }
     else if(reptilePunch)
     {
         reptilePunchFunction();
-        //ctx.clearRect(0,0,canvas.width,canvas.height)
-        //reptileKickFunction();
     }
     else if(reptileKick)
     {
@@ -467,6 +579,41 @@ function gameloop()
     else{
 
         reptileStanceFunction();
+    }
+
+
+    //Changing the life of the charecters
+    if(reptilePosX-posX<200)
+    {
+        //console.log("Collision Condition")
+        if(block && reptileBlock)
+        {
+            console.log("both block")
+        }
+        else if(block &&(reptilePunch||reptileKick)) 
+        {
+            RadienLife-=20;
+        }
+        else if((punch||kick)&&reptileBlock)
+        {
+            ReptileLife-=20;
+        }
+        else if((punch||kick)&&(reptileKick||reptilePunch))
+        {
+            RadienLife-=75;
+            ReptileLife-=75;
+        }
+        else if(punch||kick)
+        {
+            ReptileLife-=50;
+        }
+        else if(reptilePunch||reptileKick)
+        {
+            RadienLife-=50;
+        }
+        //console.log(`RadienLife: ${RadienLife}`)
+        //console.log(`ReptileLife: ${ReptileLife}`)
+
     }
 }
 setInterval(gameloop,80);
