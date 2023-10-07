@@ -18,6 +18,7 @@ let eKeyDown =false;
 let eKeyUp=false;
 let rKeyDown =false;
 let rKeyUp=false;
+let radienFall=false;
 let i=1;
 let j=0
 let posX=10;
@@ -35,6 +36,7 @@ let reptilePunchKeyDown =false;
 let reptilePunchKeyUp=false;
 let reptileKickKeyDown =false;
 let reptileKickKeyUp=false;
+let reptileFall=false;
 let reptilei=1;
 let reptilej=0
 let reptilePosX=990;
@@ -117,6 +119,14 @@ function keyup(event)
                     reptileKickKeyUp=true;
                     reptilei=1;
                     break;
+                case "Enter":
+                    radienFall=false;
+                    reptileFall=false;
+                    RadienLife=5000;
+                    ReptileLife=5000;
+                    reptilei=1;
+                    i=1;
+                    break;
 
         }
     }
@@ -126,6 +136,15 @@ function keyup(event)
     document.addEventListener("keydown",keydown);
     document.addEventListener("keyup",keyup);
     // document.addEventListener("keypress",keypress)
+
+//Loading Fall Images for Radien
+var fallImages=[];
+fallImages.length=9;
+for(let i=1;i<=9;i++)
+{
+    fallImages[i]=new Image();
+    fallImages[i].src=`./assets/sprites/fall/fallf0${i}.png`
+}
 
 
 //loading walking images radien
@@ -219,6 +238,24 @@ for(let i =1;i<=3;i++)
     reptileBlockImages[i].src=`./assets/reptile/block/block0${i}.png`;
 }
 
+var reptileFallImages=[];
+reptileFallImages.length=7;
+for(let i=1;i<=7;i++)
+{
+    reptileFallImages[i]=new Image();
+    reptileFallImages[i].src=`./assets/reptile/fall/fallf0${i}.png`;
+}
+
+//Fall Function for reptile
+function reptileFallFunction()
+{
+    if(reptilei>=7)
+    {
+        reptilei=7;
+    }
+    ctx.drawImage(reptileFallImages[reptilei],reptilePosX,600,playerHeight,150);
+    reptilei+=1;
+}
 // Stance function for reptile
 function reptileStanceFunction()
 {
@@ -268,6 +305,7 @@ function reptilePunchFunction()
     reptilei+=1;
 }
 
+//Function for Reptile fall
 
 //function for the kick of reptile
 function reptileKickFunction()
@@ -352,11 +390,27 @@ function blockFunction()
     ctx.drawImage(blockImages[i],posX,300,playerWidht,playerHeight);
     i+=1;
 }
+
+//Fall function for Radien 
+function fallFunction()
+{
+    if(i>=8)
+    {
+        i=8;
+    }
+    ctx.drawImage(fallImages[i],posX,600,playerHeight,150);
+    i+=1;
+}
 function gameloop()
 {
     ctx.clearRect(0,0,canvas.width,canvas.height)
+    ctx.strokeStyle = "White";
+    ctx.lineWidth = 5; 
     if(RadienLife>0&&ReptileLife>0)
     {
+        ctx.strokeRect(50, 50, 333, 50); 
+        ctx.strokeRect(1150, 50, -333, 50); 
+
         if(RadienLife>4000)
         {
             ctx.fillStyle="#00ff00"
@@ -396,11 +450,11 @@ function gameloop()
     else{
         if(RadienLife<0)
         {
-
+            radienFall=true;
         }
         else if(ReptileLife<0)
         {
-            
+            reptileFall=true;
         }
     }
     //checking for what state the controller wants to be 
@@ -432,7 +486,11 @@ function gameloop()
         eKeyUp=false;
         rKeyUp=false;
     }
-    if(walk)
+    if(radienFall)
+    {
+        fallFunction();
+    }
+    else if(walk)
     {
         //console.log("hi")
         walkFunction();
@@ -493,7 +551,12 @@ function gameloop()
 
 
     //This is the condition to check the state of reptile
-    if(reptileWalk)
+    if(reptileFall)
+    {
+        console.log(reptilei)
+        reptileFallFunction();
+    }
+    else if(reptileWalk)
     {
         reptileWalkFunction();
     }
@@ -529,11 +592,11 @@ function gameloop()
         }
         else if(block &&(reptilePunch||reptileKick)) 
         {
-            RadienLife-=25;
+            RadienLife-=20;
         }
         else if((punch||kick)&&reptileBlock)
         {
-            ReptileLife-=25;
+            ReptileLife-=20;
         }
         else if((punch||kick)&&(reptileKick||reptilePunch))
         {
@@ -548,8 +611,8 @@ function gameloop()
         {
             RadienLife-=50;
         }
-        console.log(`RadienLife: ${RadienLife}`)
-        console.log(`ReptileLife: ${ReptileLife}`)
+        //console.log(`RadienLife: ${RadienLife}`)
+        //console.log(`ReptileLife: ${ReptileLife}`)
 
     }
 }
