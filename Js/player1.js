@@ -43,6 +43,42 @@ let reptilePosX=990;
 let ReptileLife=5000;
 
 
+//To reset all the values for the variables                            
+function reset()
+{
+    //These are the variables for the Radien to reset
+    walk =false;
+    punch =false;
+    kick=false;
+    block =false;
+    backWalk=false;
+    eKeyDown =false;
+    eKeyUp=false;
+    rKeyDown =false;
+    rKeyUp=false;
+    radienFall=false;
+    i=1;
+    j=0
+    posX=10;
+    RadienLife=5000;
+
+    //These are the variables for the reptile to reset
+    reptileWalk =false;
+    reptilePunch =false;
+    reptileKick=false;
+    reptileBlock =false;
+    reptileBackWalk=false;
+    reptilePunchKeyDown =false;
+    reptilePunchKeyUp=false;
+    reptileKickKeyDown =false;
+    reptileKickKeyUp=false;
+    reptileFall=false;
+    reptilei=1;
+    reptilej=0
+    reptilePosX=990;
+    ReptileLife=5000;
+
+}
 
 
 //functions deciding the state when key is pressed
@@ -120,12 +156,7 @@ function keyup(event)
                     reptilei=1;
                     break;
                 case "Enter":
-                    radienFall=false;
-                    reptileFall=false;
-                    RadienLife=5000;
-                    ReptileLife=5000;
-                    reptilei=1;
-                    i=1;
+                    reset();
                     break;
 
         }
