@@ -21,9 +21,7 @@ let rKeyUp=false;
 let i=1;
 let j=0
 let posX=10;
-
-
-
+let RadienLife=500;
 
 
 //variables to define the state of reptile 
@@ -40,7 +38,7 @@ let reptileKickKeyUp=false;
 let reptilei=1;
 let reptilej=0
 let reptilePosX=990;
-
+let ReptileLife=500;
 
 
 
@@ -447,7 +445,7 @@ function gameloop()
 
 
 
-
+    //This is the condition to check the state of reptile
     if(reptileWalk)
     {
         reptileWalkFunction();
@@ -459,13 +457,10 @@ function gameloop()
     else if(reptileBlock)
     {
         reptileBlockFunction();
-        //console.log("reptileBlock");
     }
     else if(reptilePunch)
     {
         reptilePunchFunction();
-        //ctx.clearRect(0,0,canvas.width,canvas.height)
-        //reptileKickFunction();
     }
     else if(reptileKick)
     {
@@ -475,5 +470,8 @@ function gameloop()
 
         reptileStanceFunction();
     }
+
+
+    
 }
 setInterval(gameloop,80);
