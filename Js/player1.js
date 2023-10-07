@@ -355,9 +355,54 @@ function blockFunction()
 function gameloop()
 {
     ctx.clearRect(0,0,canvas.width,canvas.height)
-    ctx.fillStyle="#90ff00"
-    ctx.fillRect(50,50,RadienLife/15,50)
-    ctx.fillRect(1150,50,-(ReptileLife/15),50)
+    if(RadienLife>0&&ReptileLife>0)
+    {
+        if(RadienLife>4000)
+        {
+            ctx.fillStyle="#00ff00"
+        }
+        else if(RadienLife>3000)
+        {
+            ctx.fillStyle="#90ff00"
+        }
+        else if(RadienLife>2000)
+        {
+            ctx.fillStyle="#ffff00"
+        }
+        else 
+        {
+            ctx.fillStyle="#ff0000"
+        }
+        ctx.fillRect(50,50,RadienLife/15,50)
+        
+        if(ReptileLife>4000)
+        {
+            ctx.fillStyle="#00ff00"
+        }
+        else if(ReptileLife>3000)
+        {
+            ctx.fillStyle="#90ff00"
+        }
+        else if(ReptileLife>2000)
+        {
+            ctx.fillStyle="#ffff00"
+        }
+        else 
+        {
+            ctx.fillStyle="#ff0000"
+        }
+        ctx.fillRect(1150,50,-(ReptileLife/15),50)
+    }
+    else{
+        if(RadienLife<0)
+        {
+
+        }
+        else if(ReptileLife<0)
+        {
+            
+        }
+    }
     //checking for what state the controller wants to be 
     if(eKeyDown&&rKeyDown&&!eKeyUp&&!rKeyUp)
     {
@@ -507,7 +552,5 @@ function gameloop()
         console.log(`ReptileLife: ${ReptileLife}`)
 
     }
-
-
 }
 setInterval(gameloop,80);
