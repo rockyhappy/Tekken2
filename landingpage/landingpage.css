@@ -1,60 +1,69 @@
-body {
+
+body, html {
     margin: 0;
     padding: 0;
+    height: 100%;
     font-family: Arial, sans-serif;
-    background-color: #000;
-    overflow: hidden;
+}
+header {
+    background-color: #222;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
 }
 
-.container {
+header h1 {
+    font-size: 36px;
+    margin: 0;
+}
+
+
+.landing-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    min-height: 100vh;
-    position: relative;
+    align-items: center;
+    height: 100vh;
 }
 
-#arena {
-    width: 80%;
-    max-width: 800px;
-    height: auto;
-    z-index: 1;
+
+.game-container img {
+    max-width: 100%;
+    max-height: 80vh;
 }
 
-.characters {
-    display: flex;
-    justify-content: space-between;
-    width: 80%;
-    max-width: 800px;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.character {
-    flex: 1;
-}
-
-.character img {
-    width: 100%;
-    max-height: 300px;
-    border: 2px solid #fff;
-    border-radius: 10px;
-}
-
-#play-button {
-    background-color: #ff5733;
-    color: #fff;
-    font-size: 24px;
-    padding: 15px 30px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.buttons-container {
     margin-top: 20px;
 }
 
-#play-button:hover {
-    background-color: #ff4500;
+
+button {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: #f00; 
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+}
+
+button:hover {
+    background-color: #ff4500; 
+}
+
+.character {
+    position: absolute;
+    max-width: 20%; /* size of both character*/
+    top: 60%; /* Adjust the vertical position */
+    transform: translateY(-50%);
+}
+
+.character-1 {
+    left: 40%; /* horizontal position for character 1 */
+}
+
+.character-2 {
+    right: 40%; /*  horizontal position for character 2 */
 }
