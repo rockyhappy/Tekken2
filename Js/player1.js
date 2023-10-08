@@ -336,8 +336,6 @@ function reptilePunchFunction()
     reptilei+=1;
 }
 
-//Function for Reptile fall
-
 //function for the kick of reptile
 function reptileKickFunction()
 {
@@ -458,7 +456,7 @@ function gameloop()
         {
             ctx.fillStyle="#ff0000"
         }
-        ctx.fillRect(50,50,RadienLife/15,50)
+        ctx.fillRect(50,52.5,RadienLife/15,45)
         
         if(ReptileLife>4000)
         {
@@ -476,7 +474,7 @@ function gameloop()
         {
             ctx.fillStyle="#ff0000"
         }
-        ctx.fillRect(1150,50,-(ReptileLife/15),50)
+        ctx.fillRect(1150,52.5,-(ReptileLife/15),45)
     }
     else{
         if(RadienLife<0)
@@ -622,23 +620,35 @@ function gameloop()
         else if(block &&(reptilePunch||reptileKick)) 
         {
             RadienLife-=20;
+            if(posX-10>=0)
+            posX-=10;
         }
         else if((punch||kick)&&reptileBlock)
         {
             ReptileLife-=20;
+            if(reptilePosX+10<990)
+            reptilePosX+=10
         }
         else if((punch||kick)&&(reptileKick||reptilePunch))
         {
             RadienLife-=75;
             ReptileLife-=75;
+            if(posX-10>=0)
+            posX-=5;
+            if(reptilePosX+10<990)
+            reptilePosX+=5
         }
         else if(punch||kick)
         {
             ReptileLife-=50;
+            if(reptilePosX+10<990)
+            reptilePosX+=5
         }
         else if(reptilePunch||reptileKick)
         {
             RadienLife-=50;
+            if(posX-10>=0)
+            posX-=5;
         }
         //console.log(`RadienLife: ${RadienLife}`)
         //console.log(`ReptileLife: ${ReptileLife}`)
