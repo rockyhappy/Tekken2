@@ -543,26 +543,26 @@ function gameloop()
     {
         fallFunction();
     }
-    else if(walk)
-    {
-        //console.log("hi")
-        walkFunction();
-    }
-    else if(backWalk)
-    {
-        backWalkFunction();
-    }
-    else if(block)
-    {
-        blockFunction();
-    }
     else if(punch)
     {
+        //console.log("hi")
         punchFunction();
     }
     else if(kick)
     {
         kickFunction();
+    }
+    else if(block)
+    {
+        blockFunction();
+    }
+    else if(walk)
+    {
+        walkFunction();
+    }
+    else if(backWalk)
+    {
+        backWalkFunction();
     }
     else{
         stanceFunction();
