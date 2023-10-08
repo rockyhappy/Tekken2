@@ -1,8 +1,27 @@
 body{
-    /* background-image: url("./assets/arrenas/arena.png");
+    background-image: url("./assets/images/finAL\ TEMPALTE\ FOR\ TEKKEN.png");
     background-repeat : no-repeat ;
-    background-size: contain;
-} */
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    padding:0;
+    margin: 0;
+    overflow: hidden;
+    backdrop-filter: blur(5px);
+}
+
+.center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    padding-top: 5%;
+    /* background:url("./assets/images/finAL\ TEMPALTE\ FOR\ TEKKEN.png") ; */
+    background-repeat : no-repeat ;
+    background-size: contain;   	
+    overflow :hidden;
+
 }
 #game{
     /* height: 100%;
