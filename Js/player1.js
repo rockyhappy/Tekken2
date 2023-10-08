@@ -7,10 +7,20 @@ canvas.fillStyle="transparent"
 const playerHeight=400
 const playerWidht=200
 
+const gameOverSound=document.getElementById("GameOver")
+const bgSound=document.getElementById("BackGround")
+const punchAudio=document.getElementById("punch")
+const kickAudio=document.getElementById("kick")
+const bgMusic=document.getElementById("start")
 
+bgMusic.volume=0.1;
+//bgMusic.play();
 //variable to check if game is over or not 
 let gameover=false;
-let playerLife=5000;
+let playerLife=500;
+let flag1=0;
+let flag2=0;
+
 
 // variable to define state of radien 
 let walk =false;
@@ -50,7 +60,10 @@ let ReptileLife=playerLife;
 //To reset all the values for the variables                            
 function reset()
 {
+    bgMusic.play();
     gameover=false;
+    flag1=0;
+    flag2=0;
     //These are the variables for the Radien to reset
     walk =false;
     punch =false;
@@ -303,6 +316,15 @@ function reptileFallFunction()
     {
         reptilei=7;
     }
+    if(reptilei==6 && flag1==0)
+    {
+        gameOverSound.volume=0.9;
+        gameOverSound.currentTime=0;
+        gameOverSound.play();
+        bgSound.volume=0.4;
+        bgSound.play();
+        flag1=1;
+    }
     ctx.drawImage(reptileFallImages[reptilei],reptilePosX,600,playerHeight,150);
     reptilei+=1;
 }
@@ -351,6 +373,12 @@ function reptilePunchFunction()
         reptilei=1;
         reptilePunch=false;
     }
+    if(reptilei==2)
+    {
+        punchAudio.volume=0.9;
+        punchAudio.currentTime=0;
+        punchAudio.play();
+    }
     ctx.drawImage(reptilePunchImages[reptilei],reptilePosX,300,playerWidht,playerHeight);
     reptilei+=1;
 }
@@ -363,6 +391,13 @@ function reptileKickFunction()
         reptilei=1;
         reptileKick=false;
     }
+    if(reptilei==2||reptilei==3)
+    {
+        kickAudio.volume=0.9;
+        kickAudio.currentTime=0;
+        kickAudio.play();
+    }
+    console.log("kick")
     ctx.drawImage(reptileKickImages[reptilei],reptilePosX,300,playerWidht,playerHeight);
     reptilei+=2;
 }
@@ -416,6 +451,12 @@ function punchFunction()
         i=1;
         punch=false;
     }
+    if(i==2)
+    {
+        punchAudio.volume=0.9;
+        punchAudio.currentTime=0;
+        punchAudio.play();
+    }
     ctx.drawImage(punchImages[i],posX,300,playerWidht,playerHeight);
     i+=1;
 }
@@ -425,6 +466,12 @@ function kickFunction()
     {
         i=1;
         kick=false;
+    }
+    if(i==2||i==3)
+    {
+        kickAudio.volume=0.9;
+        kickAudio.currentTime=0;
+        kickAudio.play();
     }
     ctx.drawImage(kickImages[i],posX,300,playerWidht,playerHeight);
     i+=2;
@@ -445,6 +492,16 @@ function fallFunction()
     if(i>=8)
     {
         i=8;
+    }
+    if(i==8 && flag2==0)
+    {
+        gameOverSound.volume=0.9;
+        gameOverSound.currentTime=0;
+        gameOverSound.play();
+        bgSound.volume=0.4;
+        bgSound.play();
+        flag2=1;
+        console.log("check");
     }
     ctx.drawImage(fallImages[i],posX,600,playerHeight,150);
     i+=1;
@@ -501,7 +558,6 @@ function gameloop()
             radienFall=true;
             ReptileLife=playerLife;
             gameover=true;
-            //continue;
         }
         else if(ReptileLife<0)
         {
