@@ -16,7 +16,7 @@ body{
     justify-content: center;
     height: 100%;
     width: 100%;
-    padding-top: 5%;
+    padding-top: 3%;
     /* background:url("./assets/images/finAL\ TEMPALTE\ FOR\ TEKKEN.png") ; */
     background-repeat : no-repeat ;
     background-size: contain;   	
@@ -30,4 +30,5 @@ body{
     background-image: url("./assets/arrenas/arena.png");
     background-repeat : no-repeat ;
     background-size: contain;
+    box-shadow: 0px 5px 10px 15px yellow;
 }

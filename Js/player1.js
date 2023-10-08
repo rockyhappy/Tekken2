@@ -60,6 +60,7 @@ let ReptileLife=playerLife;
 //To reset all the values for the variables                            
 function reset()
 {
+    bgMusic.volume=0.9
     playerLife=5000;
     bgMusic.play();
     gameover=false;
@@ -319,6 +320,7 @@ function reptileFallFunction()
     }
     if(reptilei==6 && flag1==0)
     {
+        bgMusic.volume=0;
         gameOverSound.volume=1;
         gameOverSound.currentTime=0;
         gameOverSound.play();
@@ -496,6 +498,7 @@ function fallFunction()
     }
     if(i==8 && flag2==0)
     {
+        bgMusic.volume=0;
         gameOverSound.volume=1;
         gameOverSound.currentTime=0;
         gameOverSound.play();
