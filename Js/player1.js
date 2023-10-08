@@ -469,4 +469,34 @@ function gameloop()
         reptileStanceFunction();
     }
 }
+
+function walkFunction() {
+    if (i >= 9) {
+        i = 1;
+    }
+
+    // Check if the new position is within canvas bounds
+    if (posX + (j * 40) + playerWidht <= canvas.width) {
+        posX += j * 40;
+    }
+
+    ctx.drawImage(walkImages[i], posX, 300, playerWidht, playerHeight);
+    i += 1;
+    j += 1;
+}
+
+function backWalkFunction() {
+    if (i >= 9) {
+        i = 1;
+    }
+
+    // Check if the new position is within canvas bounds
+    if (posX - (j * 40) >= 0) {
+        posX -= j * 40;
+    }
+
+    ctx.drawImage(walkImages[10 - i], posX, 300, playerWidht, playerHeight);
+    i += 1;
+    j += 1;
+}
 setInterval(gameloop,80);
