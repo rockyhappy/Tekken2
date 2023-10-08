@@ -8,6 +8,10 @@ const playerHeight=400
 const playerWidht=200
 
 
+//variable to check if game is over or not 
+let gameover=false;
+let playerLife=50;
+
 // variable to define state of radien 
 let walk =false;
 let punch =false;
@@ -22,7 +26,7 @@ let radienFall=false;
 let i=1;
 let j=0
 let posX=10;
-let RadienLife=5000;
+let RadienLife=playerLife;
 
 
 //variables to define the state of reptile 
@@ -40,12 +44,13 @@ let reptileFall=false;
 let reptilei=1;
 let reptilej=0
 let reptilePosX=990;
-let ReptileLife=5000;
+let ReptileLife=playerLife;
 
 
 //To reset all the values for the variables                            
 function reset()
 {
+    gameover=false;
     //These are the variables for the Radien to reset
     walk =false;
     punch =false;
@@ -60,7 +65,7 @@ function reset()
     i=1;
     j=0
     posX=10;
-    RadienLife=5000;
+    RadienLife=playerLife;
 
     //These are the variables for the reptile to reset
     reptileWalk =false;
@@ -76,7 +81,7 @@ function reset()
     reptilei=1;
     reptilej=0
     reptilePosX=990;
-    ReptileLife=5000;
+    ReptileLife=playerLife;
 
 }
 
@@ -85,81 +90,95 @@ function reset()
 function keydown(event)
 {
     //console.log(event.code)
-    switch(event.code)
+
+    if(!gameover)
     {
-        case "KeyD":
-            walk=true;
-            break;
-        case "KeyA":
-            backWalk=true;
-            break;
-        case "KeyE":
-            eKeyDown=true;
-            break;
-        case "KeyR":
-            rKeyDown=true;
-            break;
-        case "ArrowRight":
-            reptileBackWalk=true;    
-            break;
-        case "ArrowLeft":
-            reptileWalk=true;
-            break;
-        case "Period":
-            reptilePunchKeyDown=true;
-            break;
-        case "Slash":
-            reptileKickKeyDown=true;
-            break;
-            }
+
+        switch(event.code)
+        {
+            case "KeyD":
+                walk=true;
+                break;
+            case "KeyA":
+                backWalk=true;
+                break;
+            case "KeyE":
+                eKeyDown=true;
+                break;
+            case "KeyR":
+                rKeyDown=true;
+                break;
+            case "ArrowRight":
+                reptileBackWalk=true;    
+                break;
+            case "ArrowLeft":
+                reptileWalk=true;
+                break;
+            case "Period":
+                reptilePunchKeyDown=true;
+                break;
+            case "Slash":
+                reptileKickKeyDown=true;
+                break;
         }
+    }
+
+}
         
 function keyup(event)
         {
-            //console.log(event.code)
-            switch (event.code)
+            if(!gameover)
             {
-                case "KeyD":
-                    walk=false;
-                    posX+=j*40;
-                    j=0
-                    break;
-                case "KeyA":
-                    backWalk=false;
-                    posX-=j*40;
-                    j=0;
-                    break;
-                case "KeyE":
-                    i=1;
-                    eKeyUp=true;
-                    break;
-                case "KeyR":
-                    i=1;
-                    rKeyUp=true;
-                    break;
-                case "ArrowRight":
-                    reptileBackWalk=false;
-                    reptilePosX+=reptilej*40;
-                    reptilej=0;
-                    break;
-                case "ArrowLeft":
-                    reptileWalk=false;
-                    reptilePosX-=reptilej*40;
-                    reptilej=0;
-                    break;
-                case "Period":
-                    reptilePunchKeyUp=true;
-                    reptilei=1;
-                    break;
-                case "Slash":
-                    reptileKickKeyUp=true;
-                    reptilei=1;
-                    break;
-                case "Enter":
-                    reset();
-                    break;
 
-        }
+                //console.log(event.code)
+                switch (event.code)
+                {
+                    case "KeyD":
+                        walk=false;
+                        posX+=j*40;
+                        j=0
+                        break;
+                    case "KeyA":
+                        backWalk=false;
+                        posX-=j*40;
+                        j=0;
+                        break;
+                    case "KeyE":
+                        i=1;
+                        eKeyUp=true;
+                        break;
+                    case "KeyR":
+                        i=1;
+                        rKeyUp=true;
+                        break;
+                    case "ArrowRight":
+                        reptileBackWalk=false;
+                        reptilePosX+=reptilej*40;
+                        reptilej=0;
+                        break;
+                    case "ArrowLeft":
+                        reptileWalk=false;
+                        reptilePosX-=reptilej*40;
+                        reptilej=0;
+                        break;
+                    case "Period":
+                        reptilePunchKeyUp=true;
+                        reptilei=1;
+                        break;
+                    case "Slash":
+                        reptileKickKeyUp=true;
+                        reptilei=1;
+                        break;
+                    case "Enter":
+                        reset();
+                        break;
+    
+                }
+            }
+            if(event.code=="Enter")
+            {
+                reset();
+            }
     }
 
    
@@ -480,10 +499,15 @@ function gameloop()
         if(RadienLife<0)
         {
             radienFall=true;
+            ReptileLife=playerLife;
+            gameover=true;
+            //continue;
         }
         else if(ReptileLife<0)
         {
             reptileFall=true;
+            RadienLife=playerLife;
+            gameover=true;
         }
     }
     //checking for what state the controller wants to be 
