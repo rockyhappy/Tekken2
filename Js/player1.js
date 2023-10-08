@@ -13,11 +13,11 @@ const punchAudio=document.getElementById("punch")
 const kickAudio=document.getElementById("kick")
 const bgMusic=document.getElementById("start")
 
-bgMusic.volume=0.1;
+bgMusic.volume=0.9;
 //bgMusic.play();
 //variable to check if game is over or not 
 let gameover=false;
-let playerLife=500;
+let playerLife=0;
 let flag1=0;
 let flag2=0;
 
@@ -60,6 +60,7 @@ let ReptileLife=playerLife;
 //To reset all the values for the variables                            
 function reset()
 {
+    playerLife=5000;
     bgMusic.play();
     gameover=false;
     flag1=0;
@@ -318,10 +319,10 @@ function reptileFallFunction()
     }
     if(reptilei==6 && flag1==0)
     {
-        gameOverSound.volume=0.9;
+        gameOverSound.volume=1;
         gameOverSound.currentTime=0;
         gameOverSound.play();
-        bgSound.volume=0.4;
+        bgSound.volume=0.7;
         bgSound.play();
         flag1=1;
     }
@@ -495,10 +496,10 @@ function fallFunction()
     }
     if(i==8 && flag2==0)
     {
-        gameOverSound.volume=0.9;
+        gameOverSound.volume=1;
         gameOverSound.currentTime=0;
         gameOverSound.play();
-        bgSound.volume=0.4;
+        bgSound.volume=0.7;
         bgSound.play();
         flag2=1;
         console.log("check");
