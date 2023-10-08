@@ -410,7 +410,7 @@ function kickFunction()
         kick=false;
     }
     ctx.drawImage(kickImages[i],posX,300,playerWidht,playerHeight);
-    i+=1;
+    i+=2;
 }
 function blockFunction()
 {
@@ -540,8 +540,6 @@ function gameloop()
     }
     else if(kick)
     {
-        kickFunction();
-        ctx.clearRect(0,0,canvas.width,canvas.height)
         kickFunction();
     }
     else{
