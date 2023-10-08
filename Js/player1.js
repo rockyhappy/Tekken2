@@ -10,7 +10,7 @@ const playerWidht=200
 
 //variable to check if game is over or not 
 let gameover=false;
-let playerLife=50;
+let playerLife=5000;
 
 // variable to define state of radien 
 let walk =false;
