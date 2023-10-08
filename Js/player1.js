@@ -607,6 +607,18 @@ function gameloop()
         console.log(reptilei)
         reptileFallFunction();
     }
+    else if(reptilePunch)
+    {
+        reptilePunchFunction();
+    }
+    else if(reptileKick)
+    {
+        reptileKickFunction()
+    }
+    else if(reptileBlock)
+    {
+        reptileBlockFunction();
+    }
     else if(reptileWalk)
     {
         reptileWalkFunction();
@@ -614,18 +626,6 @@ function gameloop()
     else if(reptileBackWalk)
     {
         reptileBackWalkFunction();
-    }
-    else if(reptileBlock)
-    {
-        reptileBlockFunction();
-    }
-    else if(reptilePunch)
-    {
-        reptilePunchFunction();
-    }
-    else if(reptileKick)
-    {
-        reptileKickFunction();
     }
     else{
 
