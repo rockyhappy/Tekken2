@@ -360,11 +360,14 @@ function reptileBackWalkFunction()
     if(reptilei>=9){
         reptilei=1;
     }
-    if(reptilePosX+(reptilej*40)+200>=1200)
-    reptilej-=1;
-    ctx.drawImage(reptileWalkImages[10-reptilei],reptilePosX+(reptilej*40),300,playerWidht,playerHeight);
+    // if(reptilePosX+(reptilej*40)+200>=1200)
+    // reptilej-=1;
+    ctx.drawImage(reptileWalkImages[10-reptilei],reptilePosX+40,300,playerWidht,playerHeight);
+    if(reptilePosX+40<1000)
+    reptilePosX+=40;
+
     reptilei+=1;
-    reptilej+=1;
+    // reptilej+=1;
 }
 
 //function for reptile punch
@@ -433,11 +436,14 @@ function backWalkFunction()
     if(i>=9){
         i=1;
     }
-    if(posX-(j*40)<=0)
-    j-=1;
-    ctx.drawImage(walkImages[10-i],posX-(j*40),300,playerWidht,playerHeight);
+    // if(posX-(j*40)<=0)
+    // j-=1;
+    ctx.drawImage(walkImages[10-i],posX-40,300,playerWidht,playerHeight);
+    if(posX>0)
+    posX-=40;
+    
     i+=1;
-    j+=1;
+    // j+=1;
 }
 function stanceFunction()
 {
