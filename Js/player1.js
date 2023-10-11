@@ -149,12 +149,12 @@ function keyup(event) {
             case "KeyE":
                 i = 1;
                 eKeyUp = true;
-                punch=false;
+                punch=false; // punch flag false for sprite
                 break;
             case "KeyR":
                 i = 1;
                 rKeyUp = true;
-                kick=false;
+                kick=false; // kick flag false for sprite
                 break;
             case "ArrowRight":
                 reptileBackWalk = false;
@@ -497,7 +497,8 @@ function gameloop() {
     if (radienFall) {
         fallFunction();
     }
-    else if (block) {
+    // else if condition upgraded to give block priority
+    else if (block) { 
         blockFunction();
     }
     else if (punch) {
@@ -553,6 +554,7 @@ function gameloop() {
         console.log(reptilei)
         reptileFallFunction();
     }
+    // else if condition upgraded to give block priority 
     else if (reptileBlock) {
         console.log('rep block')
         reptileBlockFunction();
