@@ -149,10 +149,12 @@ function keyup(event) {
             case "KeyE":
                 i = 1;
                 eKeyUp = true;
+                punch=false;
                 break;
             case "KeyR":
                 i = 1;
                 rKeyUp = true;
+                kick=false;
                 break;
             case "ArrowRight":
                 reptileBackWalk = false;
@@ -167,10 +169,12 @@ function keyup(event) {
             case "Period":
                 reptilePunchKeyUp = true;
                 reptilei = 1;
+                reptileKick=false;
                 break;
             case "Slash":
                 reptileKickKeyUp = true;
                 reptilei = 1;
+                reptilePunch=false;
                 break;
             case "Enter":
                 reset();
