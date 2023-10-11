@@ -61,6 +61,7 @@ function reset() {
     rKeyDown = false;
     rKeyUp = false;
     radienFall = false;
+    duck = false;
     i = 1;
     j = 0
     posX = 10;
@@ -77,8 +78,9 @@ function reset() {
     reptileKickKeyDown = false;
     reptileKickKeyUp = false;
     reptileFall = false;
+    reptileDuck = false;
     reptilei = 1;
-    reptilej = 0
+    reptilej = 0;
     reptilePosX = 990;
     ReptileLife = playerLife;
 
@@ -121,6 +123,11 @@ function keydown(event) {
                 reptileKickKeyDown = true;
                 reptileKick = true; //kick flag true for reptile
                 break;
+            case "KeyQ":
+                duck = true;
+            
+            case "KeyL":
+                reptileDuck = true;
             // case "keyE"&&"keyR":
             //     block=true;
             // break  
@@ -241,6 +248,13 @@ for (let i = 1; i <= 3; i++) {
     blockImages[i] = new Image();
     blockImages[i].src = `./assets/sprites/block/block0${i}.png`;
 }
+// loading duck image radien
+var reptileDuckImages = [];
+DuckImages.length = 3;
+for (let i = 1; i <= 3; i++) {
+    DuckImages[i] = new Image();
+    DuckImages[i].src = `./assets/sprites/duckjump/duckjump0${i}.png`;
+}
 
 
 // loading reptile walk images
@@ -281,6 +295,13 @@ reptileBlockImages.length = 3;
 for (let i = 1; i <= 3; i++) {
     reptileBlockImages[i] = new Image();
     reptileBlockImages[i].src = `./assets/reptile/block/block0${i}.png`;
+}
+//Loading Reptile Duck Images
+var reptileDuckImages = [];
+reptileDuckImages.length = 3;
+for (let i = 1; i <= 3; i++) {
+    reptileDuckImages[i] = new Image();
+    reptileDuckImages[i].src = `./assets/reptile/duckjump/duckjump0${i}.png`;
 }
 
 var reptileFallImages = [];
