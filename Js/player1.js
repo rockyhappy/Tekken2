@@ -23,6 +23,7 @@ let eKeyUp = false;
 let rKeyDown = false;
 let rKeyUp = false;
 let radienFall = false;
+let duck = false;
 let i = 1;
 let j = 0
 let posX = 10;
@@ -41,6 +42,7 @@ let reptilePunchKeyUp = false;
 let reptileKickKeyDown = false;
 let reptileKickKeyUp = false;
 let reptileFall = false;
+let reptileduck = false;
 let reptilei = 1;
 let reptilej = 0
 let reptilePosX = 990;
@@ -114,12 +116,15 @@ function keydown(event) {
                 break;
             case "Period":
                 reptilePunchKeyDown = true;
-                reptilePunch = true; // punch flag true for reptile
+                // reptilePunch = true; // punch flag true for reptile
 
                 break;
             case "Slash":
                 reptileKickKeyDown = true;
-                reptileKick = true; //kick flag true for reptile
+                // reptileKick = true; //kick flag true for reptile
+                break;
+            case "ArrowDown": // Handle the ducking action
+                reptileduck = true;
                 break;
             // case "keyE"&&"keyR":
             //     block=true;
@@ -176,6 +181,10 @@ function keyup(event) {
                 reptilei = 1;
                 // reptilePunch=false; // flag false
                 break;
+            case "ArrowDown":
+                    reptileduck = false; // Release the ducking action
+                    break;
+                
             case "Enter":
                 reset();
                 break;
@@ -233,6 +242,13 @@ for (let i = 1; i <= 14; i++) {
     kickImages[i] = new Image();
     kickImages[i].src = `./assets/sprites/kick/kick0${i}.png`;
 }
+// loading duck images Radien
+var duckImages = [];
+duckImages.length = 3;   
+for (let i = 1; i <= 3; i++) {
+    duckImages[i] = new Image();
+    duckImages[i].src = `./assets/sprites/duckjump/duckjumpd0${i}.png`;
+}
 
 //loading block images Radien 
 var blockImages = [];
@@ -257,6 +273,13 @@ reptilePunchImages.length = 12;
 for (let i = 1; i <= 12; i++) {
     reptilePunchImages[i] = new Image();
     reptilePunchImages[i].src = `./assets/reptile/punch/punch0${i}.png`;
+}
+// loading reptile duck images
+var reptileduckImages = [];
+duckImages.length = 3;   
+for (let i = 1; i <= 3; i++) {
+    duckImages[i] = new Image();
+    duckImages[i].src = `./assets/reptile/duckjump/duckjumpd0${i}.png`;
 }
 
 // loading reptile Stance Images
@@ -306,6 +329,17 @@ function reptileStanceFunction() {
     ctx.drawImage(reptileStanceImages[reptilei], reptilePosX, 300, playerWidht, playerHeight);
     reptilei += 1;
 }
+// duck function for reptile
+function reptileDuckFunction() {
+    if (reptilei > 8) {
+        reptilei = 1;
+        reptileduck = false;
+    }
+    ctx.drawImage(reptileduckImages[reptilei], reptilePosX, 300, playerWidht, playerHeight);
+    reptilei += 1;
+}
+
+
 
 //walk function for Reptile
 function reptileWalkFunction() {
@@ -498,7 +532,10 @@ function gameloop() {
         eKeyUp = false;
         rKeyUp = false;
     }
-    if (radienFall) {
+     if (block) { 
+        blockFunction();
+    }
+    else if (radienFall) {
         fallFunction();
     }
     // else if condition upgraded to give block priority
