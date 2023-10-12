@@ -99,12 +99,12 @@ function keydown(event) {
                 backWalk = true;
                 break;
             case "KeyE":
-                punch = true;  //punch flag to true when keyE is pressed
+                // punch = true;  //punch flag to true when keyE is pressed
                 eKeyDown = true;
                 break;
             case "KeyR":
                 rKeyDown = true;
-                kick = true; // kick flag true for raiden
+                // kick = true; // kick flag true for raiden
                 break;
             case "ArrowRight":
                 reptileBackWalk = true;
@@ -149,12 +149,12 @@ function keyup(event) {
             case "KeyE":
                 i = 1;
                 eKeyUp = true;
-                punch=false; // punch flag false for sprite
+                // punch=false; // punch flag false for sprite
                 break;
             case "KeyR":
                 i = 1;
                 rKeyUp = true;
-                kick=false; // kick flag false for sprite
+                // kick=false; // kick flag false for sprite
                 break;
             case "ArrowRight":
                 reptileBackWalk = false;
@@ -169,12 +169,12 @@ function keyup(event) {
             case "Period":
                 reptilePunchKeyUp = true;
                 reptilei = 1;
-                reptileKick=false;
+                // reptileKick=false; // flag false
                 break;
             case "Slash":
                 reptileKickKeyUp = true;
                 reptilei = 1;
-                reptilePunch=false;
+                // reptilePunch=false; // flag false
                 break;
             case "Enter":
                 reset();
@@ -425,6 +425,10 @@ function gameloop() {
     ctx.strokeStyle = "White";
     ctx.lineWidth = 5;
     if (RadienLife > 0 && ReptileLife > 0) {
+        if (posX + playerWidht >= reptilePosX) {
+            // Collision detected, adjust positions
+            posX = reptilePosX - playerWidht;
+        }
         ctx.strokeRect(50, 50, 333, 50);
         ctx.strokeRect(1150, 50, -333, 50);
 
