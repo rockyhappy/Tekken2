@@ -54,6 +54,7 @@ let reptilePunchKeyUp=false;
 let reptileKickKeyDown =false;
 let reptileKickKeyUp=false;
 let reptileFall=false;
+let reptileDown =false;
 let reptilei=1;
 let reptilej=0
 let reptilePosX=990;
@@ -99,6 +100,7 @@ function reset()
     reptileKickKeyDown =false;
     reptileKickKeyUp=false;
     reptileFall=false;
+    reptileDown=false;
     reptilei=1;
     reptilej=0
     reptilePosX=990;
@@ -141,6 +143,9 @@ function keydown(event)
                 break;
             case "KeyS":
                 radienDown=true;
+                break;
+            case "ArrowDown":
+                reptileDown=true;
                 break;
         }
     }
@@ -193,6 +198,9 @@ function keyup(event)
                         break;
                     case "KeyS":
                         radienDown=false;
+                        break;
+                    case "ArrowDown":
+                        reptileDown=false;
                         break;
                     case "Enter":
                         reset();
@@ -278,7 +286,14 @@ for(let i=1;i<=3;i++)
     blockImages[i].src=`./assets/sprites/block/block0${i}.png`;
 }
 
-
+// Reptile Down Images Loading 
+var reptileDownImages=[];
+reptileDownImages.length=3;
+for(let i=1;i<=3;i++)
+{
+    reptileDownImages[i]=new Image();
+    reptileDownImages[i].src=`./assets/reptile/block/blockd0${i}.png`
+}
 // loading reptile walk images
 var reptileWalkImages=[];
 reptileWalkImages.length=9;
@@ -442,6 +457,17 @@ function reptileBlockFunction()
     }
     ctx.drawImage(reptileBlockImages[reptilei],reptilePosX,300,playerWidht,playerHeight);
     reptilei+=1;
+}
+//reptile down Function
+function reptileDownFunction ()
+{
+    if(reptilei>3)
+    {
+        reptilei=3;
+    }
+    ctx.drawImage(reptileDownImages[i],posX,400,playerWidht,300);
+    reptilei+=1;
+
 }
 //walk function for radien
 function walkFunction()
