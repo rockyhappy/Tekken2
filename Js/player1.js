@@ -35,6 +35,7 @@ let eKeyUp=false;
 let rKeyDown =false;
 let rKeyUp=false;
 let radienFall=false;
+let radienDown=false;
 let i=1;
 let j=0
 let posX=10;
@@ -81,6 +82,7 @@ function reset()
     rKeyDown =false;
     rKeyUp=false;
     radienFall=false;
+    radienDown=false;
     i=1;
     j=0
     posX=10;
@@ -137,6 +139,9 @@ function keydown(event)
             case "Slash":
                 reptileKickKeyDown=true;
                 break;
+            case "KeyS":
+                radienDown=true;
+                break;
         }
     }
 
@@ -186,6 +191,9 @@ function keyup(event)
                         reptileKickKeyUp=true;
                         reptilei=1;
                         break;
+                    case "KeyS":
+                        radienDown=false;
+                        break;
                     case "Enter":
                         reset();
                         break;
@@ -203,6 +211,17 @@ function keyup(event)
     document.addEventListener("keydown",keydown);
     document.addEventListener("keyup",keyup);
     // document.addEventListener("keypress",keypress)
+
+
+
+// loading Down Images for Radien 
+var radienDownImages=[];
+radienDownImages.length=3;
+for(let i=1;i<=3;i++)
+{
+    radienDownImages[i]=new Image();
+    radienDownImages[i].src=`./assets/sprites/block/blockd0${i}.png`;
+}
 
 //Loading Fall Images for Radien
 var fallImages=[];
@@ -504,7 +523,16 @@ function blockFunction()
     ctx.drawImage(blockImages[i],posX,300,playerWidht,playerHeight);
     i+=1;
 }
-
+//Down Function for radien 
+function radienDownFunction()
+{
+    if(i>3)
+    {
+        i=3;
+    }
+    ctx.drawImage(radienDownImages[i],posX,400,playerWidht,300);
+    i+=1;
+}
 //Fall function for Radien 
 function fallFunction()
 {
@@ -686,6 +714,10 @@ function gameloop()
     else if(backWalk)
     {
         backWalkFunction();
+    }
+    else if(radienDown)
+    {
+        radienDownFunction()
     }
     else{
         stanceFunction();
