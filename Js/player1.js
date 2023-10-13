@@ -822,7 +822,11 @@ function gameloop()
     if(reptilePosX-posX<200)
     {
         //console.log("Collision Condition")
-        if(block && reptileBlock)
+        if((reptilePunch && radienDown)||(punch&&reptileDown))
+        {   
+            console.log("punch duck succes")
+        }
+        else if(block && reptileBlock)
         {
             console.log("both block")
         }
