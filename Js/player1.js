@@ -898,7 +898,7 @@ function gameloop()
     if(reptilePosX-posX<200)
     {
         //console.log("Collision Condition")
-        if(radienJump&&reptileKick)
+        if((radienJump&&reptileKick)||(reptileJump&&kick))
         {
             console.log("reptile Kick Radien Jump")
         }
