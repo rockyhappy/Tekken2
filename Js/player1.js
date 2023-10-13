@@ -36,6 +36,7 @@ let rKeyDown =false;
 let rKeyUp=false;
 let radienFall=false;
 let radienDown=false;
+let radienJump=false;
 let i=1;
 let j=0
 let posX=10;
@@ -55,6 +56,7 @@ let reptileKickKeyDown =false;
 let reptileKickKeyUp=false;
 let reptileFall=false;
 let reptileDown =false;
+let reptileJump=false;
 let reptilei=1;
 let reptilej=0
 let reptilePosX=990;
@@ -84,6 +86,7 @@ function reset()
     rKeyUp=false;
     radienFall=false;
     radienDown=false;
+    radienJump=false;
     i=1;
     j=0
     posX=10;
@@ -101,6 +104,7 @@ function reset()
     reptileKickKeyUp=false;
     reptileFall=false;
     reptileDown=false;
+    reptileJump=false;
     reptilei=1;
     reptilej=0
     reptilePosX=990;
@@ -147,6 +151,9 @@ function keydown(event)
             case "ArrowDown":
                 reptileDown=true;
                 break;
+            // case "KeyW":
+            //     radienJump=true;
+            //     break;
         }
     }
 
@@ -202,6 +209,14 @@ function keyup(event)
                     case "ArrowDown":
                         reptileDown=false;
                         break;
+                    case "KeyW":
+                        radienJump=true;
+                        i=1;
+                        break;
+                    case "ArrowUp":
+                        reptilei=1
+                        reptileJump=true;
+                        break;
                     case "Enter":
                         reset();
                         break;
@@ -221,6 +236,14 @@ function keyup(event)
     // document.addEventListener("keypress",keypress)
 
 
+//Loading Jump images for Radien 
+var radienJumpImages=[];
+radienJumpImages.length=3;
+for(let i=1;i<=3;i++)
+{
+    radienJumpImages[i]=new Image();
+    radienJumpImages[i].src=`./assets/sprites/duckjump/duckjumpj0${i}.png`
+}
 
 // loading Down Images for Radien 
 var radienDownImages=[];
@@ -284,6 +307,15 @@ for(let i=1;i<=3;i++)
 {
     blockImages[i]=new Image();
     blockImages[i].src=`./assets/sprites/block/block0${i}.png`;
+}
+
+//Loading function for reptile 
+var reptileJumpImages=[];
+reptileJumpImages.length=3;
+for(let i=1;i<=3;i++)
+{
+    reptileJumpImages[i]=new Image();
+    reptileJumpImages[i].src=`./assets/reptile/duckjump/duckjumpj0${i}.png`;
 }
 
 // Reptile Down Images Loading 
@@ -469,6 +501,23 @@ function reptileDownFunction ()
     reptilei+=1;
 
 }
+// Reptile Jump Images
+function reptileJumpFunction()
+{
+    if(Math.ceil(reptilei/3)>=4)
+    {
+        reptileJump=false;
+        reptilei=1;
+    }
+    if(Math.ceil(reptilei/3)==2)
+        ctx.drawImage(reptileJumpImages[Math.ceil(reptilei/3)],reptilePosX,100,playerWidht,300);
+    else 
+        ctx.drawImage(reptileJumpImages[Math.ceil(reptilei/3)],reptilePosX,400,playerWidht,300);
+        //console.log(i);
+    //console.log(Math.ceil(reptilei/3));
+    reptilei+=1;
+}
+
 //walk function for radien
 function walkFunction()
 {
@@ -578,6 +627,22 @@ function fallFunction()
         console.log("check");
     }
     ctx.drawImage(fallImages[i],posX,600,playerHeight,150);
+    i+=1;
+}
+// Jump Function for Radien
+function radienJumpFunction()
+{
+    if(Math.ceil(i/3)>=4)
+    {
+        radienJump=false;
+        i=1;
+    }
+    if(Math.ceil(i/3)==2)
+        ctx.drawImage(radienJumpImages[Math.ceil(i/3)],posX,100,playerWidht,300);
+    else 
+        ctx.drawImage(radienJumpImages[Math.ceil(i/3)],posX,400,playerWidht,300);
+        //console.log(i);
+    console.log(Math.ceil(i/3));
     i+=1;
 }
 function gameloop()
@@ -716,6 +781,7 @@ function gameloop()
         eKeyUp=false;
         rKeyUp=false;
     }
+    //function TO implement the judged state of radien
     if(radienFall)
     {
         fallFunction();
@@ -743,7 +809,12 @@ function gameloop()
     }
     else if(radienDown)
     {
-        radienDownFunction()
+        radienDownFunction();
+    }
+    else if(radienJump)
+    {
+        //console.log(i);
+        radienJumpFunction();
     }
     else{
         stanceFunction();
@@ -812,6 +883,11 @@ function gameloop()
     {
         reptileDownFunction();
     }
+    else if(reptileJump)
+    {
+        console.log("hi");
+        reptileJumpFunction();
+    }
     else{
 
         reptileStanceFunction();
@@ -822,7 +898,11 @@ function gameloop()
     if(reptilePosX-posX<200)
     {
         //console.log("Collision Condition")
-        if((reptilePunch && radienDown)||(punch&&reptileDown))
+        if((radienJump&&reptileKick)||(reptileJump&&kick))
+        {
+            console.log("reptile Kick Radien Jump")
+        }
+        else if((reptilePunch && radienDown)||(punch&&reptileDown))
         {   
             console.log("punch duck succes")
         }
