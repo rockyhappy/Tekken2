@@ -784,12 +784,14 @@ function gameloop()
         else if(punch||kick)
         {
             ReptileLife-=50;
+            if(kick)ReptileLife-=10;
             if(reptilePosX+10<990)
             reptilePosX+=5
         }
         else if(reptilePunch||reptileKick)
         {
             RadienLife-=50;
+            if(reptileKick)RadienLife-=10;
             if(posX-10>=0)
             posX-=5;
         }
