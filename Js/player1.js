@@ -594,15 +594,41 @@ function gameloop()
         {
             radienFall=true;
             ReptileLife=playerLife;
+            RadienLife=0;
             gameover=true;
         }
         else if(ReptileLife<0)
         {
             reptileFall=true;
             RadienLife=playerLife;
+            ReptileLife=0;
             gameover=true;
         }
     }
+
+    //This is to sync the timer with the lifes of the player 
+    if(timer==0)
+    {
+        if(RadienLife==ReptileLife)
+        {
+            timer+=10;
+        }
+        else if(RadienLife>ReptileLife)
+        {
+            reptileFall=true;
+            RadienLife=playerLife;
+            ReptileLife=0;
+            gameover=true;
+        }
+        else 
+        {
+            radienFall=true;
+            ReptileLife=playerLife;
+            RadienLife=0;
+            gameover=true;
+        }
+    }
+
     //checking for what state the controller wants to be 
     if(eKeyDown&&rKeyDown&&!eKeyUp&&!rKeyUp)
     {
