@@ -104,8 +104,6 @@ function reset()
 //functions deciding the state when key is pressed
 function keydown(event)
 {
-    //console.log(event.code)
-
     if(!gameover)
     {
 
@@ -378,6 +376,8 @@ function reptilePunchFunction()
     {
         reptilei=1;
         reptilePunch=false;
+        reptilePunchKeyDown=false;
+        reptilePunchKeyUp=false;
     }
     if(reptilei==2)
     {
@@ -396,6 +396,8 @@ function reptileKickFunction()
     {
         reptilei=1;
         reptileKick=false;
+        reptileKickKeyDown=false;
+        reptileKickKeyUp=false;
     }
     if(reptilei==2||reptilei==3)
     {
@@ -459,6 +461,8 @@ function punchFunction()
     {
         i=1;
         punch=false;
+        eKeyDown=false;
+        eKeyUp=false;
     }
     if(i==2)
     {
@@ -475,6 +479,8 @@ function kickFunction()
     {
         i=1;
         kick=false;
+        rKeyDown=false;
+        rKeyUp=false;
     }
     if(i==2||i==3)
     {
