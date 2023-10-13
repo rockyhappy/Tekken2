@@ -20,6 +20,8 @@ let gameover=false;
 let playerLife=0;
 let flag1=0;
 let flag2=0;
+let timer=60;
+let counter=0;
 
 
 // variable to define state of radien 
@@ -33,6 +35,7 @@ let eKeyUp=false;
 let rKeyDown =false;
 let rKeyUp=false;
 let radienFall=false;
+let radienDown=false;
 let i=1;
 let j=0
 let posX=10;
@@ -51,6 +54,7 @@ let reptilePunchKeyUp=false;
 let reptileKickKeyDown =false;
 let reptileKickKeyUp=false;
 let reptileFall=false;
+let reptileDown =false;
 let reptilei=1;
 let reptilej=0
 let reptilePosX=990;
@@ -60,8 +64,10 @@ let ReptileLife=playerLife;
 //To reset all the values for the variables                            
 function reset()
 {
+    timer=60;
     bgMusic.volume=0.9
     playerLife=5000;
+    bgMusic.currentTime=0;
     bgMusic.play();
     gameover=false;
     flag1=0;
@@ -77,6 +83,7 @@ function reset()
     rKeyDown =false;
     rKeyUp=false;
     radienFall=false;
+    radienDown=false;
     i=1;
     j=0
     posX=10;
@@ -93,6 +100,7 @@ function reset()
     reptileKickKeyDown =false;
     reptileKickKeyUp=false;
     reptileFall=false;
+    reptileDown=false;
     reptilei=1;
     reptilej=0
     reptilePosX=990;
@@ -104,8 +112,6 @@ function reset()
 //functions deciding the state when key is pressed
 function keydown(event)
 {
-    //console.log(event.code)
-
     if(!gameover)
     {
 
@@ -134,6 +140,12 @@ function keydown(event)
                 break;
             case "Slash":
                 reptileKickKeyDown=true;
+                break;
+            case "KeyS":
+                radienDown=true;
+                break;
+            case "ArrowDown":
+                reptileDown=true;
                 break;
         }
     }
@@ -184,6 +196,12 @@ function keyup(event)
                         reptileKickKeyUp=true;
                         reptilei=1;
                         break;
+                    case "KeyS":
+                        radienDown=false;
+                        break;
+                    case "ArrowDown":
+                        reptileDown=false;
+                        break;
                     case "Enter":
                         reset();
                         break;
@@ -201,6 +219,17 @@ function keyup(event)
     document.addEventListener("keydown",keydown);
     document.addEventListener("keyup",keyup);
     // document.addEventListener("keypress",keypress)
+
+
+
+// loading Down Images for Radien 
+var radienDownImages=[];
+radienDownImages.length=3;
+for(let i=1;i<=3;i++)
+{
+    radienDownImages[i]=new Image();
+    radienDownImages[i].src=`./assets/sprites/block/blockd0${i}.png`;
+}
 
 //Loading Fall Images for Radien
 var fallImages=[];
@@ -257,7 +286,14 @@ for(let i=1;i<=3;i++)
     blockImages[i].src=`./assets/sprites/block/block0${i}.png`;
 }
 
-
+// Reptile Down Images Loading 
+var reptileDownImages=[];
+reptileDownImages.length=3;
+for(let i=1;i<=3;i++)
+{
+    reptileDownImages[i]=new Image();
+    reptileDownImages[i].src=`./assets/reptile/block/blockd0${i}.png`
+}
 // loading reptile walk images
 var reptileWalkImages=[];
 reptileWalkImages.length=9;
@@ -302,7 +338,7 @@ for(let i =1;i<=3;i++)
     reptileBlockImages[i]=new Image();
     reptileBlockImages[i].src=`./assets/reptile/block/block0${i}.png`;
 }
-
+//loading reptile fall images
 var reptileFallImages=[];
 reptileFallImages.length=7;
 for(let i=1;i<=7;i++)
@@ -378,6 +414,8 @@ function reptilePunchFunction()
     {
         reptilei=1;
         reptilePunch=false;
+        reptilePunchKeyDown=false;
+        reptilePunchKeyUp=false;
     }
     if(reptilei==2)
     {
@@ -396,6 +434,8 @@ function reptileKickFunction()
     {
         reptilei=1;
         reptileKick=false;
+        reptileKickKeyDown=false;
+        reptileKickKeyUp=false;
     }
     if(reptilei==2||reptilei==3)
     {
@@ -417,6 +457,17 @@ function reptileBlockFunction()
     }
     ctx.drawImage(reptileBlockImages[reptilei],reptilePosX,300,playerWidht,playerHeight);
     reptilei+=1;
+}
+//reptile down Function
+function reptileDownFunction ()
+{
+    if(reptilei>3)
+    {
+        reptilei=3;
+    }
+    ctx.drawImage(reptileDownImages[reptilei],reptilePosX,400,playerWidht,300);
+    reptilei+=1;
+
 }
 //walk function for radien
 function walkFunction()
@@ -459,6 +510,8 @@ function punchFunction()
     {
         i=1;
         punch=false;
+        eKeyDown=false;
+        eKeyUp=false;
     }
     if(i==2)
     {
@@ -475,6 +528,8 @@ function kickFunction()
     {
         i=1;
         kick=false;
+        rKeyDown=false;
+        rKeyUp=false;
     }
     if(i==2||i==3)
     {
@@ -494,7 +549,16 @@ function blockFunction()
     ctx.drawImage(blockImages[i],posX,300,playerWidht,playerHeight);
     i+=1;
 }
-
+//Down Function for radien 
+function radienDownFunction()
+{
+    if(i>3)
+    {
+        i=3;
+    }
+    ctx.drawImage(radienDownImages[i],posX,400,playerWidht,300);
+    i+=1;
+}
 //Fall function for Radien 
 function fallFunction()
 {
@@ -521,6 +585,25 @@ function gameloop()
     ctx.clearRect(0,0,canvas.width,canvas.height)
     ctx.strokeStyle = "White";
     ctx.lineWidth = 5; 
+
+    // Timer Functionality
+    if(playerLife!=0 && !gameover)
+    {
+        
+        ctx.font="100px Impact, sans-serif"
+        ctx.fillStyle="white"
+        ctx.textAlign = "center";
+        var text = timer;
+        var x = canvas.width / 2;
+        var y = canvas.height / 7;
+        ctx.fillText(text, x, y);
+        if(counter%12==0)
+        {
+            counter=0
+            timer-=1;
+        }
+        counter+=1;
+    }
     if(RadienLife>0&&ReptileLife>0)
     {
         ctx.strokeRect(50, 50, 333, 50); 
@@ -567,15 +650,43 @@ function gameloop()
         {
             radienFall=true;
             ReptileLife=playerLife;
+            RadienLife=0;
             gameover=true;
         }
         else if(ReptileLife<0)
         {
             reptileFall=true;
             RadienLife=playerLife;
+            ReptileLife=0;
             gameover=true;
         }
     }
+
+    //This is to sync the timer with the lifes of the player 
+    if(timer==0)
+    {
+        bgMusic.currentTime=0;
+        bgMusic.play();
+        if(RadienLife==ReptileLife)
+        {
+            timer+=10;
+        }
+        else if(RadienLife>ReptileLife)
+        {
+            reptileFall=true;
+            RadienLife=playerLife;
+            ReptileLife=0;
+            gameover=true;
+        }
+        else 
+        {
+            radienFall=true;
+            ReptileLife=playerLife;
+            RadienLife=0;
+            gameover=true;
+        }
+    }
+
     //checking for what state the controller wants to be 
     if(eKeyDown&&rKeyDown&&!eKeyUp&&!rKeyUp)
     {
@@ -629,6 +740,10 @@ function gameloop()
     else if(backWalk)
     {
         backWalkFunction();
+    }
+    else if(radienDown)
+    {
+        radienDownFunction()
     }
     else{
         stanceFunction();
@@ -693,6 +808,10 @@ function gameloop()
     {
         reptileBackWalkFunction();
     }
+    else if(reptileDown)
+    {
+        reptileDownFunction();
+    }
     else{
 
         reptileStanceFunction();
@@ -703,7 +822,11 @@ function gameloop()
     if(reptilePosX-posX<200)
     {
         //console.log("Collision Condition")
-        if(block && reptileBlock)
+        if((reptilePunch && radienDown)||(punch&&reptileDown))
+        {   
+            console.log("punch duck succes")
+        }
+        else if(block && reptileBlock)
         {
             console.log("both block")
         }
@@ -731,12 +854,14 @@ function gameloop()
         else if(punch||kick)
         {
             ReptileLife-=50;
+            if(kick)ReptileLife-=10;
             if(reptilePosX+10<990)
             reptilePosX+=5
         }
         else if(reptilePunch||reptileKick)
         {
             RadienLife-=50;
+            if(reptileKick)RadienLife-=10;
             if(posX-10>=0)
             posX-=5;
         }
@@ -745,4 +870,4 @@ function gameloop()
 
     }
 }
-setInterval(gameloop,80);
+setInterval(gameloop,75);
