@@ -20,6 +20,8 @@ let gameover=false;
 let playerLife=0;
 let flag1=0;
 let flag2=0;
+let timer=60;
+let counter=0;
 
 
 // variable to define state of radien 
@@ -60,6 +62,7 @@ let ReptileLife=playerLife;
 //To reset all the values for the variables                            
 function reset()
 {
+    timer=60;
     bgMusic.volume=0.9
     playerLife=5000;
     bgMusic.play();
@@ -527,6 +530,24 @@ function gameloop()
     ctx.clearRect(0,0,canvas.width,canvas.height)
     ctx.strokeStyle = "White";
     ctx.lineWidth = 5; 
+
+    if(playerLife!=0 && !gameover)
+    {
+        
+        ctx.font="100px Arial"
+        ctx.fillStyle="white"
+        ctx.textAlign = "center";
+        var text = timer;
+        var x = canvas.width / 2;
+        var y = canvas.height / 9;
+        ctx.fillText(text, x, y);
+        if(counter%12==0)
+        {
+            counter=0
+            timer-=1;
+        }
+        counter+=1;
+    }
     if(RadienLife>0&&ReptileLife>0)
     {
         ctx.strokeRect(50, 50, 333, 50); 
@@ -751,4 +772,4 @@ function gameloop()
 
     }
 }
-setInterval(gameloop,80);
+setInterval(gameloop,75);
