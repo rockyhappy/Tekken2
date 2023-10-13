@@ -56,6 +56,7 @@ let reptileKickKeyDown =false;
 let reptileKickKeyUp=false;
 let reptileFall=false;
 let reptileDown =false;
+let reptileJump=false;
 let reptilei=1;
 let reptilej=0
 let reptilePosX=990;
@@ -103,6 +104,7 @@ function reset()
     reptileKickKeyUp=false;
     reptileFall=false;
     reptileDown=false;
+    reptileJump=false;
     reptilei=1;
     reptilej=0
     reptilePosX=990;
@@ -211,6 +213,10 @@ function keyup(event)
                         radienJump=true;
                         i=1;
                         break;
+                    case "ArrowUp":
+                        reptilei=1
+                        reptileJump=true;
+                        break;
                     case "Enter":
                         reset();
                         break;
@@ -301,6 +307,15 @@ for(let i=1;i<=3;i++)
 {
     blockImages[i]=new Image();
     blockImages[i].src=`./assets/sprites/block/block0${i}.png`;
+}
+
+//Loading function for reptile 
+var reptileJumpImages=[];
+reptileJumpImages.length=3;
+for(let i=1;i<=3;i++)
+{
+    reptileJumpImages[i]=new Image();
+    reptileJumpImages[i].src=`./assets/reptile/duckjump/duckjumpj0${i}.png`;
 }
 
 // Reptile Down Images Loading 
@@ -486,6 +501,23 @@ function reptileDownFunction ()
     reptilei+=1;
 
 }
+// Reptile Jump Images
+function reptileJumpFunction()
+{
+    if(Math.ceil(reptilei/3)>=4)
+    {
+        reptileJump=false;
+        reptilei=1;
+    }
+    if(Math.ceil(reptilei/3)==2)
+        ctx.drawImage(reptileJumpImages[Math.ceil(reptilei/3)],reptilePosX,100,playerWidht,300);
+    else 
+        ctx.drawImage(reptileJumpImages[Math.ceil(reptilei/3)],reptilePosX,400,playerWidht,300);
+        //console.log(i);
+    //console.log(Math.ceil(reptilei/3));
+    reptilei+=1;
+}
+
 //walk function for radien
 function walkFunction()
 {
@@ -850,6 +882,11 @@ function gameloop()
     else if(reptileDown)
     {
         reptileDownFunction();
+    }
+    else if(reptileJump)
+    {
+        console.log("hi");
+        reptileJumpFunction();
     }
     else{
 
