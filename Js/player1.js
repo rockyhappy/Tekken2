@@ -36,6 +36,7 @@ let rKeyDown =false;
 let rKeyUp=false;
 let radienFall=false;
 let radienDown=false;
+let radienJump=false;
 let i=1;
 let j=0
 let posX=10;
@@ -84,6 +85,7 @@ function reset()
     rKeyUp=false;
     radienFall=false;
     radienDown=false;
+    radienJump=false;
     i=1;
     j=0
     posX=10;
@@ -202,6 +204,9 @@ function keyup(event)
                     case "ArrowDown":
                         reptileDown=false;
                         break;
+                    case "KeyW":
+                        radienJump=true;
+                        break;
                     case "Enter":
                         reset();
                         break;
@@ -221,6 +226,14 @@ function keyup(event)
     // document.addEventListener("keypress",keypress)
 
 
+//Loading Jump images for Radien 
+var radienJumpImages=[];
+radienJumpImages.length=3;
+for(let i=1;i<=3;i++)
+{
+    radienJumpImages[i]=new Image();
+    radienJumpImages[i].src=`./assets/sprites/duckjump/duckjumpj0${i}.png`
+}
 
 // loading Down Images for Radien 
 var radienDownImages=[];
@@ -580,6 +593,17 @@ function fallFunction()
     ctx.drawImage(fallImages[i],posX,600,playerHeight,150);
     i+=1;
 }
+// Jump Function for Radien
+function radienJumpFunction()
+{
+    if(i==3)
+    {
+        radienJump=false;
+        i=1;
+    }
+    ctx.drawImage(radienDownImages[i],posX,400,playerWidht,300);
+    i+=1;
+}
 function gameloop()
 {
     ctx.clearRect(0,0,canvas.width,canvas.height)
@@ -716,6 +740,7 @@ function gameloop()
         eKeyUp=false;
         rKeyUp=false;
     }
+    //function TO implement the judged state of radien
     if(radienFall)
     {
         fallFunction();
