@@ -531,15 +531,16 @@ function gameloop()
     ctx.strokeStyle = "White";
     ctx.lineWidth = 5; 
 
+    // Timer Functionality
     if(playerLife!=0 && !gameover)
     {
         
-        ctx.font="100px Arial"
+        ctx.font="100px Impact, sans-serif"
         ctx.fillStyle="white"
         ctx.textAlign = "center";
         var text = timer;
         var x = canvas.width / 2;
-        var y = canvas.height / 9;
+        var y = canvas.height / 7;
         ctx.fillText(text, x, y);
         if(counter%12==0)
         {
