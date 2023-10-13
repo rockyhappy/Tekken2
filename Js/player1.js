@@ -338,7 +338,7 @@ for(let i =1;i<=3;i++)
     reptileBlockImages[i]=new Image();
     reptileBlockImages[i].src=`./assets/reptile/block/block0${i}.png`;
 }
-
+//loading reptile fall images
 var reptileFallImages=[];
 reptileFallImages.length=7;
 for(let i=1;i<=7;i++)
@@ -465,7 +465,7 @@ function reptileDownFunction ()
     {
         reptilei=3;
     }
-    ctx.drawImage(reptileDownImages[i],posX,400,playerWidht,300);
+    ctx.drawImage(reptileDownImages[reptilei],reptilePosX,400,playerWidht,300);
     reptilei+=1;
 
 }
@@ -807,6 +807,10 @@ function gameloop()
     else if(reptileBackWalk)
     {
         reptileBackWalkFunction();
+    }
+    else if(reptileDown)
+    {
+        reptileDownFunction();
     }
     else{
 
