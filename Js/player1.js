@@ -65,6 +65,7 @@ function reset()
     timer=60;
     bgMusic.volume=0.9
     playerLife=5000;
+    bgMusic.currentTime=0;
     bgMusic.play();
     gameover=false;
     flag1=0;
@@ -610,6 +611,8 @@ function gameloop()
     //This is to sync the timer with the lifes of the player 
     if(timer==0)
     {
+        bgMusic.currentTime=0;
+        bgMusic.play();
         if(RadienLife==ReptileLife)
         {
             timer+=10;
