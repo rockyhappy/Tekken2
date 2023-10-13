@@ -149,6 +149,9 @@ function keydown(event)
             case "ArrowDown":
                 reptileDown=true;
                 break;
+            // case "KeyW":
+            //     radienJump=true;
+            //     break;
         }
     }
 
@@ -206,6 +209,7 @@ function keyup(event)
                         break;
                     case "KeyW":
                         radienJump=true;
+                        i=1;
                         break;
                     case "Enter":
                         reset();
@@ -596,12 +600,17 @@ function fallFunction()
 // Jump Function for Radien
 function radienJumpFunction()
 {
-    if(i==3)
+    if(Math.ceil(i/3)>=4)
     {
         radienJump=false;
         i=1;
     }
-    ctx.drawImage(radienDownImages[i],posX,400,playerWidht,300);
+    if(Math.ceil(i/3)==2)
+        ctx.drawImage(radienJumpImages[Math.ceil(i/3)],posX,100,playerWidht,300);
+    else 
+        ctx.drawImage(radienJumpImages[Math.ceil(i/3)],posX,400,playerWidht,300);
+        //console.log(i);
+    console.log(Math.ceil(i/3));
     i+=1;
 }
 function gameloop()
@@ -768,7 +777,12 @@ function gameloop()
     }
     else if(radienDown)
     {
-        radienDownFunction()
+        radienDownFunction();
+    }
+    else if(radienJump)
+    {
+        //console.log(i);
+        radienJumpFunction();
     }
     else{
         stanceFunction();
